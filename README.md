@@ -7,7 +7,7 @@
 
 ## Live Deployment URL
 
-**Netlify/Vercel URL:https://pixel-survivor-game.vercel.app/
+**Vercel URL:https://pixel-survivor-game.vercel.app/
 
 ## GitHub Repository
 
