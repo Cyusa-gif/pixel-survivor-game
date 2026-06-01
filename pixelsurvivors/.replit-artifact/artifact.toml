@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "PixelSurvivor"
+version = "1.0.0"
+id = "artifacts/pixelsurvivors"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24615
+
+[services.development]
+run = "pnpm --filter @workspace/pixelsurvivors run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/pixelsurvivors", "run", "build" ]
+publicDir = "artifacts/pixelsurvivors/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24615"
+BASE_PATH = "/"

@@ -1,0 +1,127 @@
+// PixelSurvivor - Global Styles
+// SASS Variables
+$color-bg: #0a0a1a;
+$color-bg-board: #0d0d2b;
+$color-primary: #00ffcc;
+$color-accent: #ff4466;
+$color-warn: #ffaa00;
+$color-health: #44ff88;
+$color-health-low: #ff4444;
+$color-text: #e0e0ff;
+$color-text-dim: #8888aa;
+$color-overlay: rgba(5, 5, 20, 0.92);
+$color-hud-bg: rgba(0, 0, 0, 0.6);
+
+$font-pixel: 'Press Start 2P', monospace;
+$font-hud: 'Orbitron', sans-serif;
+
+$radius-sm: 4px;
+$radius-md: 8px;
+$radius-lg: 16px;
+
+$glow-primary: 0 0 10px $color-primary, 0 0 20px rgba(0, 255, 204, 0.4);
+$glow-accent: 0 0 10px $color-accent, 0 0 20px rgba(255, 68, 102, 0.4);
+$glow-warn: 0 0 10px $color-warn, 0 0 20px rgba(255, 170, 0, 0.4);
+
+// Mixins
+@mixin glow-border($color, $intensity: 1) {
+  border: 1px solid rgba($color, 0.8);
+  box-shadow: 0 0 #{8px * $intensity} $color,
+              0 0 #{16px * $intensity} rgba($color, 0.5),
+              inset 0 0 #{8px * $intensity} rgba($color, 0.1);
+}
+
+@mixin pixel-font {
+  font-family: $font-pixel;
+  letter-spacing: 0.05em;
+  text-rendering: optimizeSpeed;
+}
+
+@mixin hud-panel {
+  background: $color-hud-bg;
+  backdrop-filter: blur(8px);
+  border-radius: $radius-md;
+  @include glow-border($color-primary, 0.5);
+}
+
+@mixin button-glow($color) {
+  background: transparent;
+  color: $color;
+  border: 2px solid $color;
+  box-shadow: 0 0 12px $color, inset 0 0 12px rgba($color, 0.1);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: $font-pixel;
+
+  &:hover {
+    background: rgba($color, 0.15);
+    box-shadow: 0 0 20px $color, 0 0 40px rgba($color, 0.3), inset 0 0 20px rgba($color, 0.15);
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 0 8px $color, inset 0 0 8px rgba($color, 0.1);
+  }
+}
+
+// Reset & Base
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  background: $color-bg;
+  color: $color-text;
+  font-family: $font-hud;
+  overflow: hidden;
+  user-select: none;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Stars background animation
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+
+@keyframes fall {
+  from { transform: translateY(-10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: $glow-primary; }
+  50% { box-shadow: 0 0 20px $color-primary, 0 0 40px rgba(0, 255, 204, 0.6); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+.shake {
+  animation: shake 0.3s ease;
+}
